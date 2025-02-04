@@ -26,6 +26,8 @@ class CardNumber implements Rule
     public function passes($attribute, $value)
     {
         try {
+            $value = str_replace(' ', '', $value);
+            
             return Factory::makeFromNumber($value)->isValidCardNumber();
         } catch (CreditCardLengthException $ex) {
             $this->message = self::MSG_CARD_LENGTH_INVALID;
